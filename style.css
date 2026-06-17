@@ -1,0 +1,516 @@
+/* ==========================================================
+   Finora — Dashboard Financeiro
+   Arquivo: style.css
+   Autor: Bernardo Peres Santos — FIAP
+   Descrição: CSS personalizado que complementa o Tailwind CSS.
+              Define variáveis globais, tipografia Poppins,
+              componentes reutilizáveis e efeitos visuais
+              da identidade Finora.
+   ========================================================== */
+
+/* ----------------------------------------------------------
+   1. VARIÁVEIS GLOBAIS (Design Tokens)
+   ---------------------------------------------------------- */
+:root {
+  /* Paleta de cores */
+  --color-brand:        #7C3AED;
+  --color-brand-dark:   #5b21b6;
+  --color-brand-light:  #ede9fe;
+  --color-success:      #22C55E;
+  --color-danger:       #ef4444;
+  --color-slate-dark:   #1E293B;
+  --color-slate-bg:     #F8FAFC;
+  --color-white:        #FFFFFF;
+
+  /* Tipografia — Poppins em todos os contextos */
+  --font-primary: 'Poppins', system-ui, -apple-system, sans-serif;
+
+  /* Raios de borda */
+  --radius-sm:  0.375rem;   /* 6px  */
+  --radius-md:  0.75rem;    /* 12px */
+  --radius-lg:  1rem;       /* 16px */
+  --radius-xl:  1.25rem;    /* 20px */
+  --radius-2xl: 1.5rem;     /* 24px */
+
+  /* Sombras */
+  --shadow-card:       0 2px 16px rgba(0, 0, 0, 0.06);
+  --shadow-card-hover: 0 8px 40px rgba(124, 58, 237, 0.14);
+  --shadow-glow:       0 0 32px rgba(124, 58, 237, 0.32);
+  --shadow-topbar:     0 1px 0 rgba(255, 255, 255, 0.04);
+
+  /* Transições */
+  --transition-fast:   150ms ease;
+  --transition-base:   250ms ease;
+  --transition-slow:   400ms ease;
+}
+
+/* ----------------------------------------------------------
+   2. RESET / BASE
+   ---------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-primary);
+  font-size: 14px;
+  line-height: 1.6;
+  background-color: var(--color-slate-bg);
+  color: var(--color-slate-dark);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Remover decoração de links da nav */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Botões sem estilo padrão do browser */
+button {
+  cursor: pointer;
+  font-family: var(--font-primary);
+  border: none;
+  background: none;
+}
+
+/* Imagens responsivas */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ----------------------------------------------------------
+   3. UTILITÁRIOS TIPOGRÁFICOS
+      (complementam o Tailwind, sem conflito)
+   ---------------------------------------------------------- */
+.font-300 { font-weight: 300; }
+.font-400 { font-weight: 400; }
+.font-500 { font-weight: 500; }
+.font-600 { font-weight: 600; }
+.font-700 { font-weight: 700; }
+.font-800 { font-weight: 800; }
+
+/* Números tabulares para valores financeiros */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ----------------------------------------------------------
+   4. SIDEBAR
+   ---------------------------------------------------------- */
+.sidebar {
+  background-color: #07101f;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.18);
+}
+
+/* ----------------------------------------------------------
+   5. ITENS DE NAVEGAÇÃO
+   ---------------------------------------------------------- */
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 0.75rem;
+  border-radius: var(--radius-xl);
+  color: rgba(148, 163, 184, 0.85);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color var(--transition-fast),
+              color var(--transition-fast);
+}
+
+.nav-item:hover {
+  background-color: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+}
+
+.nav-item:hover svg {
+  color: #ffffff;
+}
+
+/* Estado ativo */
+.nav-item--active {
+  background-color: rgba(124, 58, 237, 0.18);
+  color: #a78bfa;
+  font-weight: 600;
+}
+
+.nav-item--active:hover {
+  background-color: rgba(124, 58, 237, 0.24);
+  color: #c4b5fd;
+}
+
+.nav-item--active svg {
+  color: #a78bfa;
+}
+
+/* ----------------------------------------------------------
+   6. BADGE DE NOTIFICAÇÃO
+   ---------------------------------------------------------- */
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 0.35rem;
+  background: var(--color-brand);
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  font-family: var(--font-primary);
+  border-radius: 9999px;
+  line-height: 1;
+}
+
+/* ----------------------------------------------------------
+   7. AVATAR COM ANEL DE DESTAQUE
+   ---------------------------------------------------------- */
+.avatar-ring {
+  border: 2px solid var(--color-brand);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+  transition: box-shadow var(--transition-base);
+}
+
+.avatar-ring:hover {
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.35);
+}
+
+/* ----------------------------------------------------------
+   8. CAMPO DE BUSCA
+   ---------------------------------------------------------- */
+.search-input {
+  transition: border-color var(--transition-fast),
+              box-shadow var(--transition-fast);
+}
+
+.search-input:focus {
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+}
+
+/* ----------------------------------------------------------
+   9. CARDS DE RESUMO (KPIs)
+   ---------------------------------------------------------- */
+.summary-card {
+  transition: box-shadow var(--transition-base),
+              transform var(--transition-base);
+}
+
+.summary-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* Card primário (Saldo) */
+.summary-card--primary {
+  box-shadow: 0 8px 32px rgba(124, 58, 237, 0.28);
+}
+
+.summary-card--primary:hover {
+  box-shadow: 0 14px 48px rgba(124, 58, 237, 0.4);
+}
+
+/* ----------------------------------------------------------
+   10. BADGE DE CATEGORIA (tabela de transações)
+   ---------------------------------------------------------- */
+.tx-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  font-family: var(--font-primary);
+  white-space: nowrap;
+}
+
+/* ----------------------------------------------------------
+   11. LINHAS DA TABELA
+   ---------------------------------------------------------- */
+.table-row-hover {
+  transition: background-color var(--transition-fast);
+}
+
+.table-row-hover:hover {
+  background-color: rgba(124, 58, 237, 0.03);
+}
+
+/* ----------------------------------------------------------
+   12. BARRAS DE PROGRESSO
+   ---------------------------------------------------------- */
+.progress-track {
+  width: 100%;
+  height: 7px;
+  background-color: #e2e8f0;
+  border-radius: 9999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: 9999px;
+  position: relative;
+  transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Efeito shimmer */
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent        0%,
+    rgba(255,255,255,0.38) 50%,
+    transparent       100%
+  );
+  animation: shimmer 2.6s ease-in-out infinite;
+  border-radius: inherit;
+}
+
+@keyframes shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+/* Variantes de cor */
+.progress-bar--brand  { background: linear-gradient(90deg, var(--color-brand), #a78bfa); }
+.progress-bar--green  { background: linear-gradient(90deg, #059669, #34d399); }
+.progress-bar--blue   { background: linear-gradient(90deg, #2563eb, #60a5fa); }
+.progress-bar--purple { background: linear-gradient(90deg, #7c3aed, #c084fc); }
+.progress-bar--yellow { background: linear-gradient(90deg, #b45309, #fbbf24); }
+
+/* ----------------------------------------------------------
+   13. CARTÃO DE CRÉDITO VIRTUAL
+   ---------------------------------------------------------- */
+.credit-card {
+  box-shadow: 0 16px 48px rgba(124, 58, 237, 0.32);
+  transition: transform var(--transition-base),
+              box-shadow var(--transition-base);
+}
+
+.credit-card:hover {
+  transform: scale(1.015) translateY(-2px);
+  box-shadow: 0 24px 64px rgba(124, 58, 237, 0.44);
+}
+
+/* ----------------------------------------------------------
+   14. CARDS DE METAS
+   ---------------------------------------------------------- */
+.goal-card {
+  transition: background-color var(--transition-fast),
+              box-shadow var(--transition-fast),
+              transform var(--transition-fast);
+}
+
+.goal-card:hover {
+  background-color: rgba(124, 58, 237, 0.04) !important;
+  box-shadow: 0 2px 12px rgba(124, 58, 237, 0.1);
+  transform: translateX(2px);
+}
+
+/* ----------------------------------------------------------
+   15. AÇÕES RÁPIDAS
+   ---------------------------------------------------------- */
+.quick-action {
+  transition: transform var(--transition-fast),
+              background-color var(--transition-fast);
+}
+
+.quick-action:hover {
+  transform: translateY(-2px);
+}
+
+.quick-action:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.quick-action:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+/* ----------------------------------------------------------
+   16. CONTEÚDO PRINCIPAL
+   ---------------------------------------------------------- */
+.main-content {
+  transition: margin-left var(--transition-base);
+  min-width: 0; /* evita overflow em flex */
+}
+
+/* ----------------------------------------------------------
+   17. SCROLLBAR PERSONALIZADA
+   ---------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ----------------------------------------------------------
+   18. FOCO ACESSÍVEL (navegação por teclado)
+   ---------------------------------------------------------- */
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ----------------------------------------------------------
+   19. SCREEN READER ONLY
+   ---------------------------------------------------------- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ----------------------------------------------------------
+   20. RESPONSIVIDADE ADICIONAL — MOBILE FIRST
+   ---------------------------------------------------------- */
+
+/* ── Smartphone 360px ─────────────────────────────── */
+@media (max-width: 479px) {
+  .summary-card {
+    padding: 1rem;
+  }
+
+  .credit-card {
+    aspect-ratio: 1.586 / 1;
+  }
+
+  /* Tabela: fonte menor em telas muito pequenas */
+  table {
+    font-size: 0.7rem;
+  }
+}
+
+/* ── Smartphone largo / Tablet 480–767px ──────────── */
+@media (min-width: 480px) and (max-width: 767px) {
+  .summary-card--primary {
+    grid-column: span 2;
+  }
+}
+
+/* ── Tablet 768px ─────────────────────────────────── */
+@media (min-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+/* ── Notebook 1024px — sidebar aparece ───────────── */
+@media (min-width: 1024px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  .main-content {
+    background-color: var(--color-slate-bg);
+  }
+}
+
+/* ── Desktop 1440px ───────────────────────────────── */
+@media (min-width: 1440px) {
+  .summary-card:hover {
+    transform: translateY(-4px);
+  }
+}
+
+/* ----------------------------------------------------------
+   21. ANIMAÇÕES DE ENTRADA
+       (respeitam prefers-reduced-motion)
+   ---------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+
+  .summary-card {
+    animation: fadeInUp 0.45s ease both;
+  }
+  .summary-card:nth-child(1) { animation-delay: 0.04s; }
+  .summary-card:nth-child(2) { animation-delay: 0.10s; }
+  .summary-card:nth-child(3) { animation-delay: 0.16s; }
+  .summary-card:nth-child(4) { animation-delay: 0.22s; }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Sidebar desliza da esquerda */
+  .sidebar {
+    animation: slideInLeft 0.35s ease both;
+  }
+
+  @keyframes slideInLeft {
+    from { transform: translateX(-100%); opacity: 0; }
+    to   { transform: translateX(0);     opacity: 1; }
+  }
+}
+
+/* Desativa shimmer e animações para quem prefere menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  .progress-bar::after {
+    animation: none;
+  }
+
+  .summary-card,
+  .sidebar {
+    animation: none;
+  }
+
+  .summary-card:hover,
+  .credit-card:hover,
+  .goal-card:hover,
+  .quick-action:hover {
+    transform: none;
+  }
+}
+
+/* ----------------------------------------------------------
+   22. PROPORÇÃO DO CARTÃO DE CRÉDITO
+       (ISO/IEC 7810 ID-1 — 85.60mm × 53.98mm = 1.586:1)
+   ---------------------------------------------------------- */
+.card-ratio {
+  aspect-ratio: 1.586 / 1;
+}
